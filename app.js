@@ -2,7 +2,7 @@
 (function () {
   'use strict';
   const KEY = 'spor.v1';
-  const APP_VERSION = '7';
+  const APP_VERSION = '8';
   const $ = (s, r = document) => r.querySelector(s);
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const slug = s => s.toLowerCase().replace(/[^a-z0-9ğüşıöç]+/g, '-');
