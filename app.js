@@ -152,9 +152,11 @@
     const h = new Date().getHours();
     const status = off ? `<span class="pill pill-off">Off gün</span>` : `<span class="pill ${done ? 'pill-ok' : 'pill-train'}">${done ? 'Antrenman tamam' : 'Antrenman günü'}</span>`;
     const ml = S.water[t] || 0, pct = Math.min(1, ml / WATER_GOAL);
+    // Su rengi: 0-1 L kırmızı · 1-2 L sarı · 2-3 L turuncu · 3-4 L açık yeşil · 4-6 L koyu yeşil · 6 L üstü kırmızı
+    const wcol = ml > 6000 ? '#ff4d4d' : ml >= 4000 ? '#1f9d55' : ml >= 3000 ? '#7ee081' : ml >= 2000 ? '#ff9a3c' : ml >= 1000 ? '#ffd43b' : '#ff4d4d';
     const water = `<section class="card water">
-      <div class="ring" style="--p:${pct}"><span><b>${(ml / 1000).toFixed(ml % 1000 ? 2 : 0).replace('.', ',')}</b> / 4 L</span></div>
-      <div class="wbody"><h3>Su</h3><p class="muted small">${ml >= WATER_GOAL ? 'Hedef tamam.' : `${((WATER_GOAL - ml) / 1000).toFixed(2).replace('.', ',')} L kaldı`}</p>
+      <div class="ring" style="--p:${pct};--wc:${wcol}"><span><b>${(ml / 1000).toFixed(ml % 1000 ? 2 : 0).replace('.', ',')}</b> / 4 L</span></div>
+      <div class="wbody"><h3>Su</h3><p class="muted small">${ml > 6000 ? 'Çok fazla su içtin, bugünlük yeter.' : ml >= WATER_GOAL ? 'Hedef tamam.' : `${((WATER_GOAL - ml) / 1000).toFixed(2).replace('.', ',')} L kaldı`}</p>
       <div class="row"><button class="btn sm" data-water="250">+ 250 ml</button><button class="btn sm" data-water="500">+ 500 ml</button><button class="btn sm ghost" data-water="-250" aria-label="250 ml geri al">−</button></div></div>
     </section>`;
 
