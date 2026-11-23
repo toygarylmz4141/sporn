@@ -184,10 +184,43 @@
     }).join('');
 
     return `<header class="top"><p class="eyebrow">${esc(fmtDate(t))}</p><div class="hrow"><h1>Bugün</h1>${status}</div></header>
+      ${progressCard()}
       <h2 class="sec">Öğünler <span class="muted small">kaydırarak başka tarif</span></h2>
       <ol class="timeline">${meals}</ol>
       ${water}
       <details class="card rules"><summary>Beslenme kuralları</summary><ul>${DIET_RULES.map(r => `<li>${esc(r)}</li>`).join('')}</ul></details>`;
+  }
+  /* ---------- günlük görev yüzdesi + çizgi adam ---------- */
+  function progress() {
+    const t = T(), m = S.meals[t] || {}, sp = S.supps[t] || {};
+    const meals = SLOTS.filter(x => m[x.id]).length;
+    const suppKeys = [...SUPPS.morning.map(n => 'morning:' + n), ...SUPPS.evening.map(n => 'evening:' + n)];
+    const supps = suppKeys.filter(k => sp[k]).length;
+    const water = Math.min(1, (S.water[t] || 0) / WATER_GOAL);
+    const sport = isOff() ? !!S.walk[t] : doneToday();
+    const total = SLOTS.length + suppKeys.length + 2;
+    const pct = Math.round((meals + supps + water + (sport ? 1 : 0)) / total * 100);
+    return { pct, meals, supps, suppN: suppKeys.length, water, sport };
+  }
+  function stickman(pct) {
+    const mood = pct >= 100 ? 'win' : pct >= 50 ? 'mid' : pct >= 20 ? 'low' : 'zero';
+    const arms = { win: 'M30 42 L15 22 M30 42 L45 22', mid: 'M30 42 L20 52 L24 60 M30 42 L40 52 L36 60', low: 'M30 42 L19 60 M30 42 L41 60', zero: 'M30 44 L22 64 M30 44 L38 64' }[mood];
+    const legs = mood === 'win' ? 'M30 66 L19 90 M30 66 L41 90' : 'M30 66 L22 92 M30 66 L38 92';
+    const body = mood === 'zero' ? 'M30 33 L31 66' : 'M30 33 L30 66';
+    return `<svg class="stick ${mood}" viewBox="0 0 60 96" role="img" aria-label="Çizgi adam, günlük görevler yüzde ${pct}">
+      <defs><clipPath id="headclip"><circle cx="30" cy="17" r="15"/></clipPath></defs>
+      <g class="fig"><path d="${body} ${arms} ${legs}" class="limbs"/>
+      <image href="yuz.png" x="15" y="2" width="30" height="30" clip-path="url(#headclip)" preserveAspectRatio="xMidYMid slice"/>
+      <circle cx="30" cy="17" r="15" class="headring"/></g></svg>`;
+  }
+  function progressCard() {
+    const p = progress();
+    const msg = p.pct >= 100 ? 'Bugünü tamamladın!' : p.pct >= 50 ? 'Yarıyı geçtin, devam.' : p.pct > 0 ? 'Güzel başlangıç.' : 'Haydi, ilk görevle başla.';
+    return `<section class="card prog">${stickman(p.pct)}
+      <div class="pbody"><div class="phead"><span class="eyebrow">Günlük görevler</span><b class="pnum">%${p.pct}</b></div>
+        <div class="bar" role="progressbar" aria-valuenow="${p.pct}" aria-valuemin="0" aria-valuemax="100"><span style="width:${p.pct}%"></span></div>
+        <p class="small muted">${msg}</p>
+        <p class="pparts">Öğün ${p.meals}/${SLOTS.length} · Vitamin ${p.supps}/${p.suppN} · Su ${(p.water * 4).toFixed(1).replace('.', ',')}/4 L · Spor ${p.sport ? '✓' : '–'}</p></div></section>`;
   }
   const ateBtn = (id, a) => `<button class="tick ${a ? 'on' : ''}" data-ate="${id}" aria-pressed="${a}" aria-label="Yedim">${a ? '✓' : ''}</button>`;
   function suppBlock(which) {
