@@ -364,3 +364,243 @@ const DINNER_VEG = ['brokoli', 'karnabahar', 'taze fasulye', 'kabak'];
 const DINNER_EXTRAS = ['5 g zeytinyağı (piştikten sonra üstüne)'];
 
 function w(g, r) { return Math.round(g * r / 5) * 5; }
+
+/* ---------------- MALZEME PAKETLERİ ----------------
+   Uygulamadaki 56 tarifin malzemeleri sayıldı. Paketler birbirinin üstüne eklenir:
+   1. paket tariflerin %25'ini, 1+2 %50'sini, 1+2+3 %75'ini, hepsi %100'ünü yapmaya yeter.
+   Su, tuz, karabiber her tarifte var sayıldı; "isteğe göre" malzemeler sayılmadı. */
+const SHOP_TOTAL = 56;
+const SHOP_PACKS = [
+ {
+  "pct": 25,
+  "recipes": 14,
+  "items": [
+   [
+    "Diyetin her gün gerekenleri",
+    [
+     "Elma veya armut",
+     "Çiğ badem",
+     "Zeytinyağı",
+     "Salata yeşillikleri (marul, roka, salatalık, domates)",
+     "Sebze: brokoli, karnabahar, taze fasulye veya kabak",
+     "Tuz",
+     "Karabiber"
+    ]
+   ],
+   [
+    "Et, tavuk, balık",
+    [
+     "Tavuk göğüs",
+     "Yağsız dana kıyma"
+    ]
+   ],
+   [
+    "Kahvaltılık",
+    [
+     "Yulaf ezmesi",
+     "Yumurta",
+     "Whey protein"
+    ]
+   ],
+   [
+    "Tahıl ve karbonhidrat",
+    [
+     "Karabuğday"
+    ]
+   ],
+   [
+    "Sebze ve yeşillik",
+    [
+     "Limon",
+     "Portakal",
+     "Maydanoz",
+     "Mantar"
+    ]
+   ],
+   [
+    "Baharat ve sos",
+    [
+     "Tarçın",
+     "Kekik",
+     "Kimyon"
+    ]
+   ]
+  ],
+  "unlocks": [
+   "Yulaflı Yumurta Krep (Tuzlu)",
+   "Yumurta Kapama",
+   "Yulaf & Yumurta Beyazı Protein Lapası",
+   "Portakal Kabuklu Yumurta & Yulaf Pancake",
+   "Portakal Kabuğu Aromalı Kıyma",
+   "Kimyonlu Kıyma",
+   "Limonlu Karabuğday",
+   "Limon Kabuklu Tavuk & Karabuğday",
+   "Yumurta & Mantarlı \"Fake Scramble\"",
+   "Tarçınlı Yulaf + Whey & Haşlanmış Yumurta",
+   "Portakal Kabuklu Yulaf & Whey Kreması",
+   "Whey Pancake",
+   "Maydanozlu Tavuk Köfte",
+   "Maydanozlu Fırın Yağsız Köfte"
+  ]
+ },
+ {
+  "pct": 50,
+  "recipes": 29,
+  "items": [
+   [
+    "Et, tavuk, balık",
+    [
+     "Hindi göğüs",
+     "Somon"
+    ]
+   ],
+   [
+    "Tahıl ve karbonhidrat",
+    [
+     "Basmati pirinç",
+     "Pilavlık bulgur",
+     "Patates"
+    ]
+   ],
+   [
+    "Sebze ve yeşillik",
+    [
+     "Kapya biber",
+     "Ispanak"
+    ]
+   ],
+   [
+    "Baharat ve sos",
+    [
+     "Defne yaprağı",
+     "Zerdeçal",
+     "Kuru nane",
+     "Sumak"
+    ]
+   ]
+  ],
+  "unlocks": [
+   "Kimyonlu & Maydanozlu Bulgur",
+   "Kimyonlu Hindi & Bulgur",
+   "Limon Kabuğu & Kekikli Tavuklu Basmati Pirinç",
+   "Limon Kabuklu & Defneli Basmati Pirinç",
+   "Zerdeçallı & Karabiberli Basmati Pirinç",
+   "Zerdeçallı & Kimyonlu Hindi Bulgur Pilavı",
+   "Zerdeçallı Tavuk & Bulgur Pilavı",
+   "Ispanaklı Kıyma",
+   "Ispanaklı & Kapyalı Yumuşak Omlet",
+   "Naneli Kıyma",
+   "Sumaklı Tavuk & Karabuğday Kasesi",
+   "Limon Kabuğu Aromalı Fırın Somon",
+   "Naneli Somon",
+   "Sumaklı haşlanmış patates",
+   "Kekikli fırın patates"
+  ]
+ },
+ {
+  "pct": 75,
+  "recipes": 42,
+  "items": [
+   [
+    "Et, tavuk, balık",
+    [
+     "Beyaz balık fileto"
+    ]
+   ],
+   [
+    "Kahvaltılık",
+    [
+     "Light yoğurt"
+    ]
+   ],
+   [
+    "Tahıl ve karbonhidrat",
+    [
+     "Yasemin pirinç",
+     "Esmer pirinç",
+     "Glutensiz makarna"
+    ]
+   ],
+   [
+    "Baharat ve sos",
+    [
+     "İsot",
+     "Toz kişniş",
+     "Sarımsak tozu",
+     "Toz zencefil"
+    ]
+   ]
+  ],
+  "unlocks": [
+   "Yoğurtlu & Ispanaklı Fırın Tavuk",
+   "Kimyon–Kişnişli Tava Hindi",
+   "Kişnişli Hindi & Karabuğday Kasesi",
+   "Tarçın Çubuklu Yasemin Pirinç",
+   "Portakal Kabuğu Aromalı Hindi & Yasemin Pirinç",
+   "Defneli Esmer Pirinç",
+   "Kekikli Glutensiz Makarna",
+   "Zencefilli Hindi & Pirinç",
+   "Zencefilli Tavuk & Pirinç",
+   "İsotlu Kıyma",
+   "İsotlu Tavuk & Bulgur Pilavı",
+   "Sarımsaklı patates püresi",
+   "Limonlu & Kekikli Fırın Balık"
+  ]
+ },
+ {
+  "pct": 100,
+  "recipes": 56,
+  "items": [
+   [
+    "Et, tavuk, balık",
+    [
+     "Levrek"
+    ]
+   ],
+   [
+    "Tahıl ve karbonhidrat",
+    [
+     "Siyah pirinç"
+    ]
+   ],
+   [
+    "Sebze ve yeşillik",
+    [
+     "Soğan",
+     "Dereotu",
+     "Kabak",
+     "Roka",
+     "Sarımsak"
+    ]
+   ],
+   [
+    "Baharat ve sos",
+    [
+     "Toz kırmızı biber",
+     "Biberiye",
+     "Hardal",
+     "Elma sirkesi",
+     "Kuru fesleğen",
+     "Tatlı paprika",
+     "Pul biber"
+    ]
+   ]
+  ],
+  "unlocks": [
+   "Mantar & Sarımsaklı Tavuk",
+   "Roka & Sumaklı Soğuk Tavuk",
+   "Limon–Hardal Marine Fırın Hindi",
+   "Elma Sirkeli – Defneli Hindi Kapama",
+   "Dereotlu Yoğurtlu Hindi",
+   "Limon Kabuklu Siyah Pirinç",
+   "Fesleğenli Tavuk & Glutensiz Makarna",
+   "Biberiyeli Tavuk & Esmer Pirinç",
+   "Airfryer Paprikalı Somon",
+   "Defne Yapraklı Buharda Levrek",
+   "Soğanlı & Mantarlı Baharatlı Kıyma",
+   "Kapya & Soğanlı Tava Balık",
+   "Fırın Yumurta Muffin",
+   "Kapya Biberli Baharatlı Tava Tavuk"
+  ]
+ }
+];

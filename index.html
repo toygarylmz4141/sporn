@@ -181,8 +181,23 @@ textarea { width: 100%; background: var(--surface2); color: var(--fg); border: 1
 .marks b.hit { color: var(--accent); }
 .pparts { font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
 
+/* malzeme listesi */
+.pack { gap: 10px; }
+.packhead { display: grid; grid-template-columns: 38px 1fr auto; gap: 12px; align-items: center; background: none; border: 0; color: var(--fg); text-align: left; padding: 0; cursor: pointer; font: inherit; }
+.packno { width: 38px; height: 38px; border-radius: 11px; display: grid; place-items: center; font: 700 18px var(--f-display); background: color-mix(in srgb, var(--accent) 22%, var(--surface2)); color: var(--fg); }
+.packtxt { display: grid; gap: 1px; min-width: 0; }
+.packtxt b { font: 600 16px var(--f-display); }
+.packcnt { font: 600 14px var(--f-body); color: var(--muted); font-variant-numeric: tabular-nums; }
+.bar.thin { height: 5px; }
+.packbody { display: grid; gap: 6px; border-top: 1px solid var(--line); padding-top: 6px; }
+.shoplist { list-style: none; margin: 0; padding: 0; display: grid; }
+.shoplist label { display: flex; gap: 10px; align-items: center; padding: 7px 0; cursor: pointer; }
+.shoplist input { width: 20px; height: 20px; accent-color: var(--accent); flex: none; }
+.shoplist label.got { color: var(--muted); text-decoration: line-through; }
+.packbody summary { cursor: pointer; color: var(--accent); }
+
 /* alt sekmeler */
-nav.tabs { position: fixed; left: 0; right: 0; bottom: 0; z-index: 20; display: grid; grid-template-columns: repeat(3, 1fr);
+nav.tabs { position: fixed; left: 0; right: 0; bottom: 0; z-index: 20; display: grid; grid-template-columns: repeat(4, 1fr);
   background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
   border-top: 1px solid var(--line);
   padding: 6px max(16px, env(safe-area-inset-right, 0px)) calc(6px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); }
@@ -197,10 +212,11 @@ nav.tabs { position: fixed; left: 0; right: 0; bottom: 0; z-index: 20; display: 
 <nav class="tabs" aria-label="Bölümler">
   <button class="tab" data-v="bugun"><svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>Bugün</button>
   <button class="tab" data-v="antrenman"><svg viewBox="0 0 24 24"><path d="M6.5 7v10M17.5 7v10M3.5 9.5v5M20.5 9.5v5M6.5 12h11"/></svg>Spor</button>
+  <button class="tab" data-v="liste"><svg viewBox="0 0 24 24"><path d="M3.5 4.5h2.2l2.2 10.5h10.4l1.9-7.5H7"/><circle cx="9.5" cy="19" r="1.4"/><circle cx="17" cy="19" r="1.4"/></svg>Liste</button>
   <button class="tab" data-v="kilo"><svg viewBox="0 0 24 24"><path d="M4 18l5-6 4 3 7-8"/><path d="M15 7h5v5"/></svg>Kilo</button>
 </nav>
-<script src="data.js?v=10"></script>
-<script src="app.js?v=10"></script>
+<script src="data.js?v=11"></script>
+<script src="app.js?v=11"></script>
 <script>
 document.addEventListener('gesturestart', e => e.preventDefault());
 if ('serviceWorker' in navigator && location.protocol === 'https:' && !location.hostname.endsWith('claude.ai') && !location.hostname.includes('claudeusercontent')) {

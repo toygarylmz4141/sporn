@@ -2,7 +2,7 @@
 (function () {
   'use strict';
   const KEY = 'spor.v1';
-  const APP_VERSION = '10';
+  const APP_VERSION = '11';
   const $ = (s, r = document) => r.querySelector(s);
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const slug = s => s.toLowerCase().replace(/[^a-z0-9ğüşıöç]+/g, '-');
@@ -122,7 +122,7 @@
 
   function render() {
     document.querySelectorAll('.tab').forEach(b => b.setAttribute('aria-current', b.dataset.v === view ? 'page' : 'false'));
-    app.innerHTML = view === 'bugun' ? vToday() : view === 'antrenman' ? vWorkout() : vWeight();
+    app.innerHTML = view === 'bugun' ? vToday() : view === 'antrenman' ? vWorkout() : view === 'liste' ? vShop() : vWeight();
     bind();
   }
 
@@ -283,6 +283,31 @@
       ${hist ? `<h2 class="sec">Son günler</h2><ul class="simple hist">${hist}</ul>` : ''}`;
   }
 
+  /* ---------- malzeme listesi ---------- */
+  let shopOpen = null;
+  function vShop() {
+    const got = S.shop || {};
+    const cards = SHOP_PACKS.map((p, i) => {
+      const all = p.items.flatMap(g => g[1]), n = all.filter(x => got[x]).length, open = shopOpen === i;
+      return `<section class="card pack ${open ? 'open' : ''}">
+        <button class="packhead" data-pack="${i}" aria-expanded="${open}">
+          <span class="packno">${i + 1}</span>
+          <span class="packtxt"><b>${i + 1}. paket</b><span class="muted small">Tariflerin %${p.pct}'i · ${p.recipes}/${SHOP_TOTAL} tarif · ${all.length} malzeme</span></span>
+          <span class="packcnt ${n === all.length ? 'good' : ''}">${n}/${all.length}</span></button>
+        <div class="bar thin"><span style="width:${all.length ? n / all.length * 100 : 0}%"></span></div>
+        ${open ? `<div class="packbody">
+          ${i > 0 ? `<p class="muted small">${i === 1 ? '1. paketin' : `1–${i}. paketlerin`} üstüne alınacaklar.</p>` : ''}
+          ${p.items.map(([cat, list]) => `<h4>${esc(cat)}</h4><ul class="shoplist">${list.map(x => `<li><label class="${got[x] ? 'got' : ''}"><input type="checkbox" data-shop="${esc(x)}" ${got[x] ? 'checked' : ''}> ${esc(x)}</label></li>`).join('')}</ul>`).join('')}
+          <details><summary class="small">Bu paketle açılan ${p.unlocks.length} tarif</summary><p class="muted small">${p.unlocks.map(esc).join(' · ')}</p></details>
+          ${n ? `<button class="link" data-shopclear="${i}">İşaretleri temizle</button>` : ''}
+        </div>` : ''}
+      </section>`;
+    }).join('');
+    return `<header class="top"><p class="eyebrow">Tarif kitabından · en çok kullanılandan aza</p><h1>Malzeme listesi</h1></header>
+      <p class="muted small">Paketler üst üste eklenir. 1. paketle tariflerin %25'ini yapabilirsin, 4 paketin hepsiyle tamamını. Aldıklarını işaretle.</p>
+      ${cards}`;
+  }
+
   /* ---------- kilo ---------- */
   function vWeight() {
     const ws = [...S.weights].sort((a, b) => a.d.localeCompare(b.d));
@@ -364,6 +389,9 @@
       S.logs[t][id][i] = Object.assign({}, S.logs[t][id][i], { [inp.dataset.f]: inp.value.replace(',', '.') });
       save();
     }));
+    app.querySelectorAll('[data-pack]').forEach(b => b.addEventListener('click', () => { const i = +b.dataset.pack; shopOpen = shopOpen === i ? null : i; render(); }));
+    app.querySelectorAll('[data-shop]').forEach(c => c.addEventListener('change', () => { S.shop = S.shop || {}; S.shop[c.dataset.shop] = c.checked; save(); render(); }));
+    app.querySelectorAll('[data-shopclear]').forEach(b => b.addEventListener('click', () => { const p = SHOP_PACKS[+b.dataset.shopclear]; p.items.flatMap(g => g[1]).forEach(x => { if (S.shop) delete S.shop[x]; }); save(); render(); }));
     app.querySelectorAll('[data-delw]').forEach(b => b.addEventListener('click', () => { S.weights = S.weights.filter(x => x.d !== b.dataset.delw); save(); render(); }));
     const wf = $('#wform');
     if (wf) wf.addEventListener('submit', e => {
