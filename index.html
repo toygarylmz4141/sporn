@@ -197,6 +197,13 @@ textarea { width: 100%; background: var(--surface2); color: var(--fg); border: 1
 .shoplist label.got { color: var(--muted); text-decoration: line-through; }
 .packbody summary { cursor: pointer; color: var(--accent); }
 
+.dessert { gap: 0; padding: 0; }
+.dessert summary, details.card > summary { cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.dessert summary { padding: 13px 14px; }
+.dessert summary::-webkit-details-marker, details.card > summary::-webkit-details-marker { display: none; }
+.dname { font: 500 15px var(--f-display); }
+.dessert .recipe { padding: 4px 14px 14px; }
+
 /* alt sekmeler */
 nav.tabs { position: fixed; left: 0; right: 0; bottom: 0; z-index: 20; display: grid; grid-template-columns: repeat(4, 1fr);
   background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
@@ -216,8 +223,8 @@ nav.tabs { position: fixed; left: 0; right: 0; bottom: 0; z-index: 20; display: 
   <button class="tab" data-v="liste"><svg viewBox="0 0 24 24"><path d="M3.5 4.5h2.2l2.2 10.5h10.4l1.9-7.5H7"/><circle cx="9.5" cy="19" r="1.4"/><circle cx="17" cy="19" r="1.4"/></svg>Liste</button>
   <button class="tab" data-v="kilo"><svg viewBox="0 0 24 24"><path d="M4 18l5-6 4 3 7-8"/><path d="M15 7h5v5"/></svg>Kilo</button>
 </nav>
-<script src="data.js?v=12"></script>
-<script src="app.js?v=12"></script>
+<script src="data.js?v=13"></script>
+<script src="app.js?v=13"></script>
 <script>
 document.addEventListener('gesturestart', e => e.preventDefault());
 if ('serviceWorker' in navigator && location.protocol === 'https:' && !location.hostname.endsWith('claude.ai') && !location.hostname.includes('claudeusercontent')) {

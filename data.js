@@ -616,3 +616,39 @@ const SHOP_PACKS = [
 ];
 // Her tarifin açıldığı paket (0 = 1. paket)
 const SHOP_RECIPE_PACK = {"t2": 0, "t1": 0, "c36": 0, "t0": 0, "b46": 0, "b15": 0, "b48": 0, "b41": 0, "d62": 0, "d53": 0, "c37": 0, "k66": 0, "k49": 0, "c25": 0, "c26": 1, "k61": 1, "k50": 1, "k65": 1, "b17": 1, "b35": 1, "b39": 1, "b23": 1, "p4": 1, "c28": 1, "d7": 1, "k51": 1, "d57": 1, "d8": 1, "b13": 2, "d56": 2, "d67": 2, "p3": 2, "p21": 2, "k60": 2, "c27": 2, "k52": 2, "c30": 2, "k55": 2, "d68": 2, "k58": 2, "k69": 2, "d9": 2, "p2": 3, "p5": 3, "p18": 3, "p19": 3, "p20": 3, "c31": 3, "k59": 3, "k64": 3, "d11": 3, "d12": 3, "d6": 3, "d10": 3, "b14": 3, "p1": 3};
+
+/* ---------------- ALTERNATİF TATLILAR (KB Fit Tarifler) ----------------
+   B1 diyet planında olmadığı için öğünlere konmayan tarifler. Liste sekmesinde ayrı gösterilir.
+   Miktarlar kitaptaki gibidir. */
+const DESSERTS = [
+  { book: 22, name: 'Whey Puding', ing: ['30 g whey protein', '120–150 ml su', '1 çay kaşığı kakao (isteğe göre)'],
+    steps: ["Whey'i kaseye al.", 'Suyu yavaş yavaş ekleyerek karıştır.', 'Koyu muhallebi kıvamı alana kadar devam et.', 'Buzdolabında 15–20 dakika beklet.'] },
+  { book: 24, name: 'Whey + Yoğurt Kasesi', ing: ['30 g whey protein', '50 g light yoğurt', 'Tarçın'],
+    steps: ['Yoğurdu kaseye al.', "Whey'i ekle, topak kalmayana kadar karıştır.", 'Tarçın serp.'] },
+  { book: 42, name: 'Limon Kabuklu Whey & Yoğun Protein Kasesi', ing: ['30 g whey protein', '150 ml su', 'Limon kabuğu rendesi', 'Stevia', '40 g yaban mersini ve böğürtlen'],
+    steps: ['Whey ve suyu kasede koyu kıvam alana kadar çırp.', 'Limon kabuğu rendesini ekle.', 'Stevia ile tatlandır.', 'Üzerine meyveleri ekle.'], tip: 'Limonlu yoğurt hissi, laktoz yok.' },
+  { book: 38, name: 'Rice Cream', ing: ['50 g pirinç unu', '300 ml su', '1 g tuz', '30 g yaban mersini'],
+    steps: ['Pirinç unu ve 1 bardak suyu kasede pürüzsüz çırp.', 'Karışımı tencereye al, kalan suyu ekle.', 'Orta ateşte sürekli karıştır, kaynamaya başlayınca altını kıs.', '8–12 dakika pişir.', 'Kaseye alıp soğut, meyveleri yerken ekle.'] },
+  { book: 40, name: 'Limon Kabuklu Rice Cream Muhallebi', ing: ['35 g rice cream', '250 ml su', '1 çay kaşığı limon kabuğu rendesi', 'Stevia', '30 g çilek veya frambuaz'],
+    steps: ['Rice cream ve suyu tencereye al.', 'Orta ateşte sürekli karıştırarak pişir.', 'Kaynamaya yakın altını kıs, limon kabuğunu ekle.', 'Stevia ile tatlandır.', 'Kaseye alıp üzerine meyveleri ekle.'], tip: 'Cheesecake hissi: peynir yok, şeker yok.' },
+  { book: 45, name: 'Rice Cream & Yumurta Beyazı Protein Muhallebisi', ing: ['30 g rice cream', '250 ml su', '3 yumurta beyazı', 'Bir tutam vanilya tozu (şekersiz)'],
+    steps: ['Rice cream ve suyu tencereye al.', 'Orta ateşte sürekli karıştırarak pişir.', 'Kaynamaya yaklaşınca altını kıs.', 'Yumurta beyazlarını ince ip gibi ekle, hızlıca karıştır.', 'Kıvam alıp parlaklaşınca kapat, ılınınca kaseye al.'], tip: 'Sütlü tatlı hissi, laktoz yok.' },
+  { book: 47, name: 'Fırında Rice Cream & Yumurta Kasesi', ing: ['35 g rice cream', '3 yumurta beyazı', 'Bir tutam kakao (isteğe göre)', '200 ml su'],
+    steps: ['Rice cream ve suyu kasede çırp.', 'Yumurtaları ekleyip tekrar karıştır.', 'Fırın kabına dök.', '180°C fırında 25–30 dk pişir.', 'Soğudukça kıvam oturur.'], tip: 'Soğuk tüketilir, tatlı ihtiyacını keser.' },
+  { book: 43, name: 'Portakal Kabuğu Aromalı Fırın Protein Kasesi', ing: ['30 g yulaf', '25 g rice cream', '1 tam yumurta', '2 yumurta beyazı', '250 ml su', 'Portakal + limon kabuğu rendesi (çok az)', 'Stevia', '30 g elma veya armut'],
+    steps: ['Yulaf, rice cream ve suyu kasede karıştır.', 'Yumurtaları ekleyip tekrar karıştır.', 'Kabuk rendelerini ve steviayı ekle.', 'Meyveleri içine kat, fırın kabına dök.', '180°C fırında 30–35 dk pişir.'], tip: '3–4 gün buzdolabında gider.' },
+  { book: 44, name: 'Yumurtalı Meyveli Fırın Kek', ing: ['30 g rice cream', '1 tam yumurta', '2 yumurta beyazı', '250 ml su', '½ çay kaşığı portakal veya limon kabuğu rendesi', 'Stevia'],
+    steps: ['Rice cream ve suyu pürüzsüz olana kadar karıştır.', 'Yumurtaları, kabuk rendesini ve steviayı ekle.', 'Fırın kabına dök.', '180°C fırında 30–35 dk pişir, ortası hafif sallanıyorsa al.', 'Oda sıcaklığında 10 dk dinlendir.'] },
+  { book: 70, name: 'Kriz Kurtaran Çikolatalı Protein Muffin', ing: ['1 tam yumurta', '2 yumurta beyazı', '20 g yulaf unu', '1 ölçek çikolatalı whey', '1 parça bitter çikolata veya damla çikolata', '½ çay kaşığı kabartma tozu', 'Stevia veya ½ çay kaşığı bal', '2–3 yemek kaşığı badem sütü'],
+    steps: ['Yumurta ve yumurta beyazlarını çırp.', 'Whey, yulaf unu ve kabartma tozunu ekle.', 'Stevia veya çok az bal koy.', 'Koyu kek harcı kıvamına kadar badem sütü ekle.', 'Çikolatayı ekle, muffin kalıbına dök.', '180°C fırında 12–15 dk pişir, 5 dk beklet.'], tip: 'Kitapta "diyet bozma moduna girdiysen" tarifi olarak geçiyor.' },
+];
+const OTHER_RECIPES = [
+  { book: 29, name: 'Limonlu & Defneli Kinoa', ing: ['50 g kinoa', '120 ml su', '1 g tuz', '1 defne yaprağı', '2–3 damla limon suyu'],
+    steps: ['Kinoayı süzgeçte en az 1 dakika yıka.', 'Tencereye kinoa, su, tuz ve defneyi koy.', 'Kaynayınca altını kıs, 12–15 dk pişir.', 'Suyunu çekince kapat, çatalla havalandır, limon suyunu ekle.'], tip: 'Kinoada yıkama şart, yoksa tadı bozulur.' },
+  { book: 34, name: 'Kimyonlu Haşlama Nohut', ing: ['60 g nohut', '500 ml su', '¼ çay kaşığı kimyon'],
+    steps: ['Nohutu yıka, 4–5 cm geçecek kadar suda 8–12 saat beklet.', 'Suyunu dök, tekrar yıka.', 'Üstünü geçecek kadar su ve kimyonla tencereye al.', 'Kaynayınca altını kıs, 45–60 dk haşla.'] },
+  { book: 16, name: 'Yoğurtlu Yumurta Karışımı', ing: ['2 tam yumurta', '3 yumurta beyazı', '25 g light yoğurt', '1 g tuz', '½ çay kaşığı karabiber'],
+    steps: ['Yumurtaları çırp, yoğurdu ekleyip pürüzsüz karıştır.', 'Yapışmaz tavaya dök.', 'Kısık ateşte kapağı kapalı, altı tutmadan pişir.'], tip: 'Diyetinde kahvaltıda 1 tam yumurta var, bu tarifte 2.' },
+];
+// Bu tarifler için ana paketlerde olmayan ek malzemeler
+const DESSERT_EXTRAS = ['Rice cream (pirinç kreması)', 'Pirinç unu', 'Yaban mersini', 'Böğürtlen', 'Çilek veya frambuaz', 'Stevia', 'Kakao', 'Vanilya tozu (şekersiz)', 'Yulaf unu', 'Bitter / damla çikolata', 'Kabartma tozu', 'Badem sütü', 'Bal', 'Kinoa', 'Nohut'];

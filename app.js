@@ -2,7 +2,7 @@
 (function () {
   'use strict';
   const KEY = 'spor.v1';
-  const APP_VERSION = '12';
+  const APP_VERSION = '13';
   const $ = (s, r = document) => r.querySelector(s);
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const slug = s => s.toLowerCase().replace(/[^a-z0-9ğüşıöç]+/g, '-');
@@ -316,7 +316,27 @@
         <p class="small muted">Öğünlerde sadece bu malzemelerle yapılabilen tarifler çıkar.</p>
         <div class="seg seg5" role="radiogroup">${[['Hepsi', null], ['1. paket', 0], ['1–2', 1], ['1–3', 2]].map(([l, v]) => `<button role="radio" aria-selected="${(S.pack ?? null) === v}" data-setpack="${v === null ? '' : v}">${l}</button>`).join('')}</div>
       </section>
-      ${cards}`;
+      ${cards}
+      ${dessertSection()}`;
+  }
+  function recipeDetails(r) {
+    return `<details class="card dessert"><summary><span class="dname">${esc(r.name)}</span><span class="muted small">Kitap no ${r.book}</span></summary>
+      <div class="recipe"><h4>Malzemeler</h4><ul>${r.ing.map(i => `<li>${esc(i)}</li>`).join('')}</ul>
+      <h4>Yapılışı</h4><ol>${r.steps.map(i => `<li>${esc(i)}</li>`).join('')}</ol>
+      ${r.tip ? `<p class="tip">${esc(r.tip)}</p>` : ''}</div></details>`;
+  }
+  function dessertSection() {
+    const got = S.shop || {};
+    const n = DESSERT_EXTRAS.filter(x => got[x]).length;
+    return `<h2 class="sec">Alternatif tatlılar</h2>
+      <p class="muted small">Diyet planında olmadığı için öğünlere konmayan tarifler. Tatlı krizinde ya da hocanın izniyle ara sıra.</p>
+      <details class="card"><summary><b>Bu tarifler için ek malzemeler</b> <span class="muted small">${n}/${DESSERT_EXTRAS.length}</span></summary>
+        <ul class="shoplist">${DESSERT_EXTRAS.map(x => `<li><label class="${got[x] ? 'got' : ''}"><input type="checkbox" data-shop="${esc(x)}" ${got[x] ? 'checked' : ''}> ${esc(x)}</label></li>`).join('')}</ul>
+        <p class="muted small">Whey, yumurta, yulaf, yoğurt gibi diğerleri ana paketlerde var.</p></details>
+      ${DESSERTS.map(recipeDetails).join('')}
+      <h2 class="sec">Diğer tarifler</h2>
+      <p class="muted small">Kitapta olan ama diyet planına uymayan diğer tarifler.</p>
+      ${OTHER_RECIPES.map(recipeDetails).join('')}`;
   }
 
   /* ---------- kilo ---------- */
