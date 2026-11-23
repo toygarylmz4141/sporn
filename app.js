@@ -208,10 +208,8 @@
     const legs = mood === 'win' ? 'M30 66 L19 90 M30 66 L41 90' : 'M30 66 L22 92 M30 66 L38 92';
     const body = mood === 'zero' ? 'M30 33 L31 66' : 'M30 33 L30 66';
     return `<svg class="stick ${mood}" viewBox="0 0 60 96" role="img" aria-label="Çizgi adam, günlük görevler yüzde ${pct}">
-      <defs><clipPath id="headclip"><circle cx="30" cy="17" r="15"/></clipPath></defs>
       <g class="fig"><path d="${body} ${arms} ${legs}" class="limbs"/>
-      <image href="yuz.png" x="15" y="2" width="30" height="30" clip-path="url(#headclip)" preserveAspectRatio="xMidYMid slice"/>
-      <circle cx="30" cy="17" r="15" class="headring"/></g></svg>`;
+      <image href="yuz.png" x="16.5" y="0" width="27" height="34"/></g></svg>`;
   }
   function progressCard() {
     const p = progress();
