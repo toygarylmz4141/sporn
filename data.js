@@ -383,6 +383,7 @@ const SHOP_PACKS = [
      "Zeytinyağı",
      "Salata yeşillikleri (marul, roka, salatalık, domates)",
      "Sebze: brokoli, karnabahar, taze fasulye veya kabak",
+     "Patates",
      "Tuz",
      "Karabiber"
     ]
@@ -397,24 +398,23 @@ const SHOP_PACKS = [
    [
     "Kahvaltılık",
     [
-     "Yulaf ezmesi",
      "Yumurta",
-     "Whey protein"
+     "Yulaf ezmesi"
     ]
    ],
    [
     "Tahıl ve karbonhidrat",
     [
-     "Karabuğday"
+     "Basmati pirinç",
+     "Karabuğday",
+     "Glutensiz makarna"
     ]
    ],
    [
     "Sebze ve yeşillik",
     [
      "Limon",
-     "Portakal",
-     "Maydanoz",
-     "Mantar"
+     "Portakal"
     ]
    ],
    [
@@ -422,11 +422,18 @@ const SHOP_PACKS = [
     [
      "Tarçın",
      "Kekik",
-     "Kimyon"
+     "Kimyon",
+     "Defne yaprağı",
+     "Sumak",
+     "Sarımsak tozu"
     ]
    ]
   ],
   "unlocks": [
+   "Kekikli fırın patates",
+   "Sumaklı haşlanmış patates",
+   "Kekikli Glutensiz Makarna",
+   "Sarımsaklı patates püresi",
    "Yulaflı Yumurta Krep (Tuzlu)",
    "Yumurta Kapama",
    "Yulaf & Yumurta Beyazı Protein Lapası",
@@ -435,66 +442,63 @@ const SHOP_PACKS = [
    "Kimyonlu Kıyma",
    "Limonlu Karabuğday",
    "Limon Kabuklu Tavuk & Karabuğday",
-   "Yumurta & Mantarlı \"Fake Scramble\"",
-   "Tarçınlı Yulaf + Whey & Haşlanmış Yumurta",
-   "Portakal Kabuklu Yulaf & Whey Kreması",
-   "Whey Pancake",
-   "Maydanozlu Tavuk Köfte",
-   "Maydanozlu Fırın Yağsız Köfte"
+   "Limon Kabuğu & Kekikli Tavuklu Basmati Pirinç",
+   "Limon Kabuklu & Defneli Basmati Pirinç"
   ]
  },
  {
   "pct": 50,
-  "recipes": 29,
+  "recipes": 28,
   "items": [
    [
     "Et, tavuk, balık",
     [
-     "Hindi göğüs",
-     "Somon"
+     "Hindi göğüs"
+    ]
+   ],
+   [
+    "Kahvaltılık",
+    [
+     "Whey protein"
     ]
    ],
    [
     "Tahıl ve karbonhidrat",
     [
-     "Basmati pirinç",
-     "Pilavlık bulgur",
-     "Patates"
+     "Pilavlık bulgur"
     ]
    ],
    [
     "Sebze ve yeşillik",
     [
-     "Kapya biber",
+     "Mantar",
+     "Maydanoz",
      "Ispanak"
     ]
    ],
    [
     "Baharat ve sos",
     [
-     "Defne yaprağı",
      "Zerdeçal",
-     "Kuru nane",
-     "Sumak"
+     "Kuru nane"
     ]
    ]
   ],
   "unlocks": [
-   "Kimyonlu & Maydanozlu Bulgur",
-   "Kimyonlu Hindi & Bulgur",
-   "Limon Kabuğu & Kekikli Tavuklu Basmati Pirinç",
-   "Limon Kabuklu & Defneli Basmati Pirinç",
    "Zerdeçallı & Karabiberli Basmati Pirinç",
-   "Zerdeçallı & Kimyonlu Hindi Bulgur Pilavı",
    "Zerdeçallı Tavuk & Bulgur Pilavı",
-   "Ispanaklı Kıyma",
-   "Ispanaklı & Kapyalı Yumuşak Omlet",
-   "Naneli Kıyma",
+   "Zerdeçallı & Kimyonlu Hindi Bulgur Pilavı",
+   "Kimyonlu Hindi & Bulgur",
+   "Yumurta & Mantarlı \"Fake Scramble\"",
+   "Tarçınlı Yulaf + Whey & Haşlanmış Yumurta",
+   "Portakal Kabuklu Yulaf & Whey Kreması",
+   "Whey Pancake",
+   "Maydanozlu Tavuk Köfte",
+   "Kimyonlu & Maydanozlu Bulgur",
+   "Maydanozlu Fırın Yağsız Köfte",
    "Sumaklı Tavuk & Karabuğday Kasesi",
-   "Limon Kabuğu Aromalı Fırın Somon",
-   "Naneli Somon",
-   "Sumaklı haşlanmış patates",
-   "Kekikli fırın patates"
+   "Naneli Kıyma",
+   "Ispanaklı Kıyma"
   ]
  },
  {
@@ -504,6 +508,7 @@ const SHOP_PACKS = [
    [
     "Et, tavuk, balık",
     [
+     "Somon",
      "Beyaz balık fileto"
     ]
    ],
@@ -516,34 +521,39 @@ const SHOP_PACKS = [
    [
     "Tahıl ve karbonhidrat",
     [
-     "Yasemin pirinç",
      "Esmer pirinç",
-     "Glutensiz makarna"
+     "Yasemin pirinç"
+    ]
+   ],
+   [
+    "Sebze ve yeşillik",
+    [
+     "Kapya biber"
     ]
    ],
    [
     "Baharat ve sos",
     [
-     "İsot",
      "Toz kişniş",
-     "Sarımsak tozu",
-     "Toz zencefil"
+     "Toz zencefil",
+     "İsot"
     ]
    ]
   ],
   "unlocks": [
+   "Ispanaklı & Kapyalı Yumuşak Omlet",
+   "Limon Kabuğu Aromalı Fırın Somon",
+   "Naneli Somon",
    "Yoğurtlu & Ispanaklı Fırın Tavuk",
    "Kimyon–Kişnişli Tava Hindi",
    "Kişnişli Hindi & Karabuğday Kasesi",
    "Tarçın Çubuklu Yasemin Pirinç",
    "Portakal Kabuğu Aromalı Hindi & Yasemin Pirinç",
    "Defneli Esmer Pirinç",
-   "Kekikli Glutensiz Makarna",
+   "İsotlu Tavuk & Bulgur Pilavı",
+   "İsotlu Kıyma",
    "Zencefilli Hindi & Pirinç",
    "Zencefilli Tavuk & Pirinç",
-   "İsotlu Kıyma",
-   "İsotlu Tavuk & Bulgur Pilavı",
-   "Sarımsaklı patates püresi",
    "Limonlu & Kekikli Fırın Balık"
   ]
  },
@@ -567,22 +577,22 @@ const SHOP_PACKS = [
     "Sebze ve yeşillik",
     [
      "Soğan",
-     "Dereotu",
      "Kabak",
+     "Sarımsak",
      "Roka",
-     "Sarımsak"
+     "Dereotu"
     ]
    ],
    [
     "Baharat ve sos",
     [
      "Toz kırmızı biber",
-     "Biberiye",
-     "Hardal",
-     "Elma sirkesi",
      "Kuru fesleğen",
      "Tatlı paprika",
-     "Pul biber"
+     "Hardal",
+     "Biberiye",
+     "Pul biber",
+     "Elma sirkesi"
     ]
    ]
   ],
@@ -604,3 +614,5 @@ const SHOP_PACKS = [
   ]
  }
 ];
+// Her tarifin açıldığı paket (0 = 1. paket)
+const SHOP_RECIPE_PACK = {"t2": 0, "t1": 0, "c36": 0, "t0": 0, "b46": 0, "b15": 0, "b48": 0, "b41": 0, "d62": 0, "d53": 0, "c37": 0, "k66": 0, "k49": 0, "c25": 0, "c26": 1, "k61": 1, "k50": 1, "k65": 1, "b17": 1, "b35": 1, "b39": 1, "b23": 1, "p4": 1, "c28": 1, "d7": 1, "k51": 1, "d57": 1, "d8": 1, "b13": 2, "d56": 2, "d67": 2, "p3": 2, "p21": 2, "k60": 2, "c27": 2, "k52": 2, "c30": 2, "k55": 2, "d68": 2, "k58": 2, "k69": 2, "d9": 2, "p2": 3, "p5": 3, "p18": 3, "p19": 3, "p20": 3, "c31": 3, "k59": 3, "k64": 3, "d11": 3, "d12": 3, "d6": 3, "d10": 3, "b14": 3, "p1": 3};

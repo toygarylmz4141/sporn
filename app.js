@@ -2,7 +2,7 @@
 (function () {
   'use strict';
   const KEY = 'spor.v1';
-  const APP_VERSION = '11';
+  const APP_VERSION = '12';
   const $ = (s, r = document) => r.querySelector(s);
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const slug = s => s.toLowerCase().replace(/[^a-z0-9ğüşıöç]+/g, '-');
@@ -33,25 +33,32 @@
 
   /* ---------- tarif seçimi ---------- */
   const rnd = a => a[Math.floor(Math.random() * a.length)];
+  // Seçili malzeme paketine göre tarif süzme (S.pack: 0-3, yoksa hepsi)
+  const okR = r => S.pack == null || (SHOP_RECIPE_PACK[r.id] ?? 0) <= S.pack;
+  const pool = arr => { const f = arr.filter(okR); return f.length ? f : arr; };
   function makeLunch(avoid) {
     let r;
+    const P = LUNCH_PROTEINS.filter(okR), C = LUNCH_CARBS.filter(okR), K = pool(LUNCH_COMBOS);
+    const canPair = P.length && C.length;
     for (let i = 0; i < 20; i++) {
-      r = Math.random() < 0.45 ? { k: rnd(LUNCH_COMBOS).id } : { p: rnd(LUNCH_PROTEINS).id, c: rnd(LUNCH_CARBS).id };
+      r = (!canPair || Math.random() < 0.45) ? { k: rnd(K).id } : { p: rnd(P).id, c: rnd(C).id };
       if (!avoid.includes(JSON.stringify(r))) break;
     }
     return r;
   }
   function makeDinner(avoid) {
     let r;
+    const D = pool(DINNER_PROTEINS), T = DINNER_POTATOES.map((x, i) => i).filter(i => S.pack == null || (SHOP_RECIPE_PACK['t' + i] ?? 0) <= S.pack);
     for (let i = 0; i < 20; i++) {
-      r = { p: rnd(DINNER_PROTEINS).id, t: Math.floor(Math.random() * DINNER_POTATOES.length), v: Math.floor(Math.random() * DINNER_VEG.length) };
+      r = { p: rnd(D).id, t: T.length ? rnd(T) : 0, v: Math.floor(Math.random() * DINNER_VEG.length) };
       if (!avoid.some(a => JSON.parse(a).p === r.p)) break;
     }
     return r;
   }
   function makeBreakfast(avoid) {
     let r;
-    for (let i = 0; i < 20; i++) { r = { b: rnd(BREAKFASTS).id }; if (!avoid.includes(JSON.stringify(r))) break; }
+    const B = pool(BREAKFASTS);
+    for (let i = 0; i < 20; i++) { r = { b: rnd(B).id }; if (!avoid.includes(JSON.stringify(r))) break; }
     return r;
   }
   const MAKERS = { kahvalti: makeBreakfast, ogle: makeLunch, ucuncu: makeLunch, aksam: makeDinner };
@@ -305,6 +312,10 @@
     }).join('');
     return `<header class="top"><p class="eyebrow">Tarif kitabından · en çok kullanılandan aza</p><h1>Malzeme listesi</h1></header>
       <p class="muted small">Paketler üst üste eklenir. 1. paketle tariflerin %25'ini yapabilirsin, 4 paketin hepsiyle tamamını. Aldıklarını işaretle.</p>
+      <section class="card"><span class="eyebrow">Elimdeki malzemeler</span>
+        <p class="small muted">Öğünlerde sadece bu malzemelerle yapılabilen tarifler çıkar.</p>
+        <div class="seg seg5" role="radiogroup">${[['Hepsi', null], ['1. paket', 0], ['1–2', 1], ['1–3', 2]].map(([l, v]) => `<button role="radio" aria-selected="${(S.pack ?? null) === v}" data-setpack="${v === null ? '' : v}">${l}</button>`).join('')}</div>
+      </section>
       ${cards}`;
   }
 
@@ -388,6 +399,12 @@
       S.logs[t] = S.logs[t] || {}; S.logs[t][id] = S.logs[t][id] || [];
       S.logs[t][id][i] = Object.assign({}, S.logs[t][id][i], { [inp.dataset.f]: inp.value.replace(',', '.') });
       save();
+    }));
+    app.querySelectorAll('[data-setpack]').forEach(b => b.addEventListener('click', () => {
+      const v = b.dataset.setpack === '' ? null : +b.dataset.setpack;
+      if (v === null) delete S.pack; else S.pack = v;
+      if (S.picks[T()]) delete S.picks[T()]; // bugünün tariflerini yeni pakete göre yeniden seç
+      save(); render();
     }));
     app.querySelectorAll('[data-pack]').forEach(b => b.addEventListener('click', () => { const i = +b.dataset.pack; shopOpen = shopOpen === i ? null : i; render(); }));
     app.querySelectorAll('[data-shop]').forEach(c => c.addEventListener('change', () => { S.shop = S.shop || {}; S.shop[c.dataset.shop] = c.checked; save(); render(); }));
