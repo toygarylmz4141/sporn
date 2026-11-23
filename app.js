@@ -2,7 +2,7 @@
 (function () {
   'use strict';
   const KEY = 'spor.v1';
-  const APP_VERSION = '9';
+  const APP_VERSION = '8';
   const $ = (s, r = document) => r.querySelector(s);
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const slug = s => s.toLowerCase().replace(/[^a-z0-9ğüşıöç]+/g, '-');
@@ -274,7 +274,6 @@
       ${dayCard()}
       <div class="seg" role="tablist">${WORKOUTS.map((x, i) => `<button role="tab" aria-selected="${i === idx}" data-w="${i}">${x.name}${i === currentWorkoutIdx() && !isOff() ? ' •' : ''}</button>`).join('')}</div>
       <section class="card"><h2>${esc(w.focus)}</h2><ul class="notes">${PROGRAM_NOTES.map(n => `<li>${esc(n)}</li>`).join('')}</ul></section>
-      ${gymCard()}
       <h2 class="sec">Isınma</h2>${list(w.warm, 'warm')}
       <h2 class="sec">Ana antrenman</h2><ol class="exlist">${main}</ol>
       <section class="card cardio"><span class="eyebrow">Antrenman sonu</span><p class="big">${esc(w.cardio)}</p></section>
@@ -391,51 +390,10 @@
     });
   }
 
-  /* ---------- spor salonu algılama ---------- */
-  // Salon konumu kaydedilir; uygulama açıldığında salona 200 m'den yakınsan Spor sekmesi açılır.
-  const GYM_RADIUS = 200;
-  let gymMsg = '';
-  function dist(a, b) {
-    const R = 6371000, r = x => x * Math.PI / 180;
-    const dLa = r(b.lat - a.lat), dLo = r(b.lng - a.lng);
-    const h = Math.sin(dLa / 2) ** 2 + Math.cos(r(a.lat)) * Math.cos(r(b.lat)) * Math.sin(dLo / 2) ** 2;
-    return 2 * R * Math.asin(Math.sqrt(h));
-  }
-  function gymCard() {
-    return `<section class="card gym"><div class="mh"><div><span class="eyebrow">Spor salonu</span>
-      <h3>${S.gym ? 'Salon kayıtlı, gelince Spor sekmesi açılır' : 'Salonu kaydet, gelince Spor sekmesi açılsın'}</h3></div></div>
-      <div class="row"><button class="btn sm" data-gym="save">${S.gym ? 'Konumu güncelle' : 'Şu an salondayım, kaydet'}</button>${S.gym ? '<button class="btn sm ghost" data-gym="del">Kaldır</button>' : ''}</div>
-      ${gymMsg ? `<p class="muted small">${esc(gymMsg)}</p>` : ''}</section>`;
-  }
-  function gymSave() {
-    if (!navigator.geolocation) { gymMsg = 'Bu cihaz konum vermiyor.'; render(); return; }
-    gymMsg = 'Konum alınıyor…'; render();
-    navigator.geolocation.getCurrentPosition(p => {
-      S.gym = { lat: p.coords.latitude, lng: p.coords.longitude }; save();
-      gymMsg = 'Salon kaydedildi.'; render();
-    }, () => { gymMsg = 'Konum izni verilmedi. Ayarlar > Gizlilik > Konum Servisleri > Safari Web Siteleri > "Kullanırken" seç.'; render(); },
-    { enableHighAccuracy: true, timeout: 15000 });
-  }
-  let gymChecked = 0;
-  function gymCheck() {
-    if (!S.gym || !navigator.geolocation || Date.now() - gymChecked < 5 * 60000) return;
-    gymChecked = Date.now();
-    navigator.geolocation.getCurrentPosition(p => {
-      const d = dist(S.gym, { lat: p.coords.latitude, lng: p.coords.longitude });
-      if (d <= GYM_RADIUS && view !== 'antrenman' && !isOff()) { view = 'antrenman'; wView = null; render(); scrollTo(0, 0); }
-    }, () => {}, { enableHighAccuracy: true, timeout: 10000, maximumAge: 60000 });
-  }
-  app.addEventListener('click', e => {
-    const g = e.target.closest('[data-gym]'); if (!g) return;
-    if (g.dataset.gym === 'save') gymSave(); else { delete S.gym; save(); gymMsg = ''; render(); }
-  });
-  if (location.hash === '#spor') view = 'antrenman';
-
   document.querySelectorAll('.tab').forEach(b => b.addEventListener('click', () => { view = b.dataset.v; wView = null; render(); scrollTo(0, 0); }));
   // gece yarısı geçince ekranı yenile
   let lastDay = T();
   setInterval(() => { if (T() !== lastDay) { lastDay = T(); render(); } }, 60000);
-  document.addEventListener('visibilitychange', () => { if (!document.hidden) { render(); gymCheck(); } });
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) render(); });
   render();
-  gymCheck();
 })();
