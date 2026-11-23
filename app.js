@@ -2,6 +2,7 @@
 (function () {
   'use strict';
   const KEY = 'spor.v1';
+  const APP_VERSION = '7';
   const $ = (s, r = document) => r.querySelector(s);
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const slug = s => s.toLowerCase().replace(/[^a-z0-9ğüşıöç]+/g, '-');
@@ -305,7 +306,8 @@
       }).join('')}</ul>` : ''}
       <section class="card backup"><h3>Yedek</h3><p class="muted small">Verilerin bu telefonda saklanıyor. Ara sıra yedeği kopyalayıp bilgisayarındaki Spor/veriler klasörüne kaydet.</p>
         <div class="row"><button class="btn sm" data-act="export">Yedeği kopyala</button><button class="btn sm ghost" data-act="import">Yedek yükle</button></div>
-        <textarea id="bk" hidden rows="4" placeholder="Yedek metnini buraya yapıştır"></textarea><p id="bkmsg" class="muted small"></p></section>`;
+        <textarea id="bk" hidden rows="4" placeholder="Yedek metnini buraya yapıştır"></textarea><p id="bkmsg" class="muted small"></p></section>
+      <p class="muted small" style="text-align:center">SpORN sürüm ${APP_VERSION}</p>`;
   }
   function chart(ws) {
     const W = 340, H = 150, P = 28;
